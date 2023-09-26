@@ -96,6 +96,8 @@
          (on-mount handlers))
       :component-will-unmount
       (fn []
+        (when-let [on-will-unmount (:component-will-unmount props)]
+          (on-will-unmount @state))
         (when (:clean-on-unmount? props)
           (rf/dispatch [::clean path])))
       :reagent-render
